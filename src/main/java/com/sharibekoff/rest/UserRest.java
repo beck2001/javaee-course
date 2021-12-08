@@ -43,18 +43,20 @@ public class UserRest {
         return Response.ok(userService.createUser(user)).build();
     }
 
-    @Path("update")
+    @Path("update/{id}")
     @PUT
-    public Response update(UserInSocialNetwork user) {
+    public Response update(@PathParam("id") Long id) {
+        UserInSocialNetwork user = userService.findById(id);
         if (user == null) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
         return Response.ok(userService.updateUser(user)).build();
     }
 
-    @Path("delete")
+    @Path("delete/{id}")
     @DELETE
-    public Response delete(UserInSocialNetwork user) {
+    public Response delete(@PathParam("id") Long id) {
+        UserInSocialNetwork user = userService.findById(id);
         if (user == null) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }
