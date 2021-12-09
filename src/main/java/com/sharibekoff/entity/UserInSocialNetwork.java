@@ -19,7 +19,13 @@ import java.util.Objects;
 @Entity
 @Cacheable
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@NamedQueries({
+        @NamedQuery(name = UserInSocialNetwork.FIND_BY_LOGIN_AND_PASSWORD, query = "SELECT u FROM UserInSocialNetwork u WHERE u.login = :login AND u.password = :password")
+})
 public class UserInSocialNetwork {
+
+    public static final String FIND_BY_LOGIN_AND_PASSWORD = "UserInSocialNetwork.findByLoginAndPassword";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,6 +1,7 @@
 package com.sharibekoff.rest;
 
 import com.sharibekoff.entity.GroupInSocialNetwork;
+import com.sharibekoff.security.JWTTokenNeeded;
 import com.sharibekoff.service.GroupService;
 
 import javax.inject.Inject;
@@ -18,6 +19,7 @@ public class GroupRest {
 
     @Path("{id}")
     @GET
+    @JWTTokenNeeded
     public Response findById(@PathParam("id") Long id) {
         if (groupService.findById(id) == null) {
             // if group not found, server return 500 status code as response
@@ -28,6 +30,7 @@ public class GroupRest {
 
     @Path("list")
     @GET
+    @JWTTokenNeeded
     public Response findAll() {
         if (groupService.findAll().isEmpty()) {
             // if there are no groups return 500 status code
@@ -38,12 +41,14 @@ public class GroupRest {
 
     @Path("new")
     @POST
+    @JWTTokenNeeded
     public Response create(GroupInSocialNetwork group) {
         return Response.ok(groupService.createGroup(group)).build();
     }
 
     @Path("update")
     @PUT
+    @JWTTokenNeeded
     public Response update(GroupInSocialNetwork group) {
         if (group == null) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -53,6 +58,7 @@ public class GroupRest {
 
     @Path("delete")
     @DELETE
+    @JWTTokenNeeded
     public Response delete(GroupInSocialNetwork group) {
         if (group == null) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
@@ -62,6 +68,7 @@ public class GroupRest {
 
     @Path("subscribers")
     @GET
+    @JWTTokenNeeded
     public Response findBySubscribersAmount(@QueryParam("amount") int amount) {
         if (amount < 0) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
