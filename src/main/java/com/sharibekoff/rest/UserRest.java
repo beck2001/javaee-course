@@ -1,7 +1,6 @@
 package com.sharibekoff.rest;
 
 import com.sharibekoff.entity.UserInSocialNetwork;
-import com.sharibekoff.security.JWTTokenNeeded;
 import com.sharibekoff.service.UserService;
 import com.sharibekoff.util.KeyGenerator;
 import com.sharibekoff.util.PasswordUtils;
@@ -87,7 +86,7 @@ public class UserRest {
 
     @Path("list")
     @GET
-    @JWTTokenNeeded
+//    @JWTTokenNeeded
     public Response findAll() {
         if (userService.findAll().isEmpty()) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
